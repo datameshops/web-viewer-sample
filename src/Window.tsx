@@ -56,6 +56,7 @@ export default class App extends React.Component<{}, AppState> {
         const usdAssets: USDAssetType[] = [
             {name: "Sample 1", url:"./samples/stage01.usd"},
             {name: "Sample 2", url:"./samples/stage02.usd"},
+            {name: "Sample 3", url:"omniverse://localhost/Users/wangjian/NOIProject/MainScene.usd"},
         ];
         
         this.state = {
@@ -410,6 +411,19 @@ export default class App extends React.Component<{}, AppState> {
         console.log('User is not interacting in streamed viewer');
     }
 
+    /**
+    * @function _onStagePlay
+    *
+    * play
+    */
+    private _onStagePlay (): void {
+        const reset_message: AppStreamMessageType = {
+            event_type: "play",
+            payload: {}
+        };
+        AppStream.sendMessage(JSON.stringify(reset_message));
+    }
+    
     render() {
         const sidebarWidth = 300;
         const headerHeight = 60;
@@ -488,6 +502,7 @@ export default class App extends React.Component<{}, AppState> {
                     selectedUSDPrims={this.state.selectedUSDPrims}
                     fillUSDPrim={(value) => this._onFillUSDPrim(value)}
                     onReset={() => this._onStageReset()}
+                    onPlay={() => this._onStagePlay()}
                 />
                 </>
                 }
